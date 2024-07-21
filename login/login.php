@@ -5,6 +5,9 @@ error_reporting(E_ERROR | E_WARNING);
 <html>
     <head>
         <meta charset="utf-8">
+        <a href="/index.php">
+            <button>Home</button>
+        </a>
     </head>
 
     <body>
@@ -24,6 +27,10 @@ error_reporting(E_ERROR | E_WARNING);
             <br>
             <button onclick="login()">Login</button>
         </form>
+
+        <a href="./signup.php">
+            <button>Sign up</button>
+        </a>
 
     </body>
 

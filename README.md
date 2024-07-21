@@ -87,24 +87,61 @@
   - AJAX: Asynchronous JavaScript and XML. It is a web development techniques that allows web applications to send and retrieve data from a server asynchronously (in the background) without interfering with the display and behavior of the existing page
   - jQuery: a javascript library designed to simplify client scripting of HTML
       - jQuery was invented because different browsers supported different code (all the browsers had different standards) and to unify all the behaviour in one code, jQuery was made for developers
-  - $("#myResult").text(json.result)
-  - document.getElementById("myResult")
+  - `$("#myResult").text(json.result)`
+  - `document.getElementById("myResult")`
   - _**Note**_: "#" is used for id, "." is for class
   - 
 
 ### 13. More about <form>
     <form action="index.php" method="post" onSubmit="functionCall()">
   - action is used to indicate which where the form data will be sent when submitted
-     - "./index.php" vs "index.php"
-        - "index.php" refers to the root index.php 
-        - "./index.php" refers to the relative index.php file to where this file is currently
+     - "`./index.php`" vs "`index.php`"
+        - "`index.php`" refers to the root index.php 
+        - "`./index.php`" refers to the relative index.php file to where this file is currently
   - onSubmit - a call that runs when submit button is pressed.
   - onSubmit vs Button
      - onSubmit: Form-level; handles the form's overall submission process
      - onClick: Button-level; handles specific button clicks
-  - Using return in the onsubmit attribute (onsubmit="return validateForm()") ensures that the result of the validateForm() function determines whether the form submission proceeds or is canceled
+  - Using return in the onsubmit attribute (`onsubmit="return validateForm()`") ensures that the result of the validateForm() function determines whether the form submission proceeds or is canceled
 
-### 14. Make Login form
+### 14. Using ajax
+  - syntaxes include `$("#nameButton").val("john") `
+    - can also access elements by id on dev tools using `document.getElementById("nameButton").value = "Updated Text";`
+      ```
+      function mySubmit() {
+          $.ajax({
+              url: './ajax_calculator.php',
+              type: 'post',
+              cache: false,
+              data: $('#myForm1').serialize(),
+              dataType: 'json',
+              beforeSend: function() {
+    
+              },
+              complete: function() {
+    
+              },
+              success	: function(json) {
+                  if (json.result) {
+                      $("#myResult").text(json.result)
+                  }
+    
+              },
+              error: function () {
+    
+              }
+          });
+      }
+  - url points to where the information of the form will be sent to
+  - complete is like `finally()` in the try catch of java
+  - success is like `try()` in the try catch of java
+  - error is like `catch()` in the try catch of java
+  - beforeSend is executed before the AJAX request is sent, allows you to add headers or change data
+
+### 15. create login form!
+  - first i need to create a username and password to login (sign up), since i dont have a database connected to it currently, first i will store the information on the browser, once i get that working, i will connect a database to store the information
+  - 
+
 
 
     

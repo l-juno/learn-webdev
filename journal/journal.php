@@ -5,6 +5,9 @@ error_reporting(E_ERROR | E_WARNING);
 <html>
     <head>
         <meta charset="utf-8">
+        <a href="/index.php">
+            <button>Home</button>
+        </a>
     </head>
 
     <body>
