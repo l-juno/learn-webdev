@@ -42,15 +42,33 @@
 
 ### 4. Learn basics of HTML, CSS, Javascript, and PHP
 
-### 5. Create my own virtual environment using Docker
+### 5. Install Docker
+  - Containers
+     - provide a consistent environment for applications to run regardless of where they are deployed, ensuring that they behave the same on a developer's machine
+     - lightweight, standalone, and executable software package that includes everything needed to run an application
+  - Images
+     - Images are the building blocks of containers. They are built from a set of instructions written in a Dockerfile
+  - Dockerfile
+     - a text file containing a series of instructions on how to build a Docker image
+  - using texteditor in terminal
+     - "vi"
+     - 
+
 
 ### 6. Rename the IP address of my local domain to local.myproject.net 
 
-### 7. Print "Hello World" on my local server
+### 7. Use docker to create my own virtual environment
+- Docker vs react (or other development server like React's built-in create-react-app server on localhost:3000)
+    - React's development server (localhost:3000) is designed for local development and fast feedback, while Docker is used for consistent, isolated environments suitable for production
+    - React runs on your local machine with dependencies installed locally, while Docker runs in a containerized environment, encapsulating all dependencies
+    - In Docker, you explicitly map ports from the host to the container, while React's development server runs directly on a local port
+    - Docker ensures the application runs consistently across different environments, whereas React's development server is tied to the local setup
 
-### 8. Use <form> to take user input and calculate simple math problems
+### 8. Print "Hello World" on my local server
 
-### 9. Learn the difference between GET and POST in php
+### 9. Use <form> to take user input and calculate simple math problems
+
+### 10. Learn the difference between GET and POST in php
   - GET:
       - appends data to the URL in the form of query parameters, hence the data sent via get is visible in the URL
       - white space translates to "+", so data is not sent word for word
@@ -63,9 +81,9 @@
       - more secure for sensitive information because data is not exposed
       - not cached
 
-### 10. Using google developer tools on the browser, just the basics :)
+### 11. Using google developer tools on the browser, just the basics :)
 
-### 11. Ajax and jquery
+### 12. Ajax and jquery
   - AJAX: Asynchronous JavaScript and XML. It is a web development techniques that allows web applications to send and retrieve data from a server asynchronously (in the background) without interfering with the display and behavior of the existing page
   - jQuery: a javascript library designed to simplify client scripting of HTML
       - jQuery was invented because different browsers supported different code (all the browsers had different standards) and to unify all the behaviour in one code, jQuery was made for developers
@@ -74,12 +92,19 @@
   - _**Note**_: "#" is used for id, "." is for class
   - 
 
-### 11. More about <form>
+### 13. More about <form>
     <form action="index.php" method="post" onSubmit="functionCall()">
   - action is used to indicate which where the form data will be sent when submitted
      - "./index.php" vs "index.php"
         - "index.php" refers to the root index.php 
         - "./index.php" refers to the relative index.php file to where this file is currently
   - onSubmit - a call that runs when submit button is pressed.
+  - onSubmit vs Button
+     - onSubmit: Form-level; handles the form's overall submission process
+     - onClick: Button-level; handles specific button clicks
+  - Using return in the onsubmit attribute (onsubmit="return validateForm()") ensures that the result of the validateForm() function determines whether the form submission proceeds or is canceled
+
+### 14. Make Login form
+
 
     
