@@ -16,6 +16,17 @@ error_reporting(E_ERROR | E_WARNING);
 
             function submitJournal() {
 
+                const name = $("#nameButton").val();
+                const date = $("#dateButton").val();
+                const scale = $("#scaleButton").val();
+                const journal = $("#journalButton").val();
+                if(!name || !date || !scale || !journal){
+                    console.log("Fill all values");
+                    alert("Fill all values");
+                    return false; // 이 코드가 의미하는 바를 명확히 이해할 것!!!
+                }
+
+
                 $.ajax({
                     url: './ajax_journal.php',
                     type: 'post',
@@ -23,13 +34,7 @@ error_reporting(E_ERROR | E_WARNING);
                     data: $('#formButton').serialize(),
                     dataType: 'json',
                     beforeSend: function() {
-                        const name = $("#nameButton").val();
-                        const date = $("#dateButton").val();
-                        const scale = $("#scaleButton").val();
-                        const journal = $("#journalButton").val();
-                        if(!name || !date || !scale || !journal){
-                            console.log("Fill all values");
-                        }
+
                     },
                     complete: function() {
                         console.log("complete");
@@ -104,7 +109,7 @@ error_reporting(E_ERROR | E_WARNING);
 
 
 
-        <form id="formButton" method="post" action="" onSubmit="alert('Submit button Pressed');">
+        <form id="formButton" method="post" action="" onSubmit="return submitJournal()">
             What is your name?
             <input type="text" name="nameButton" id="nameButton">
             <br><br>
@@ -119,7 +124,7 @@ error_reporting(E_ERROR | E_WARNING);
                 <br>
                 <input type="text" name="journalButton" id="journalButton">
                 <br>
-                <input type="button" onclick="submitJournal()" value="button">
+                <input type="submit" value="button">
             </p>
             <br>
         </form>

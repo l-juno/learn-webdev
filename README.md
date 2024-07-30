@@ -71,7 +71,7 @@
 ### 10. Learn the difference between GET and POST in php
   - GET:
       - appends data to the URL in the form of query parameters, hence the data sent via get is visible in the URL
-      - white space translates to "+", so data is not sent word for word
+      - white space translates to "+", so data is not sent word for word (aka. information is not sent exactly as it is)
       - limited to a maximum URL length which depends on the browser (1000-2000 characters)
       - less secure,
       - can be cached in browser
@@ -80,6 +80,7 @@
       - no limit on data length
       - more secure for sensitive information because data is not exposed
       - not cached
+      - information is sent exactly the way it is
 
 ### 11. Using google developer tools on the browser, just the basics :)
 
@@ -140,7 +141,47 @@
 
 ### 15. create login form!
   - first i need to create a username and password to login (sign up), since i dont have a database connected to it currently, first i will store the information on the browser, once i get that working, i will connect a database to store the information
-  - 
+  - Create a dictionary of accounts and then once pressed sign in, create username and password accordingly if possible. Used try catch here in php to catch any errors using jquery
+  - one problem i ran into is that i dont know how i can make different files share the same dictionary. Currently i have signup.php where username and password is created. Then user is redirected to login.php. now i dont know what to do to access only the information i need in accounts.php
+  - To solve this problem i decided that i need a database to store the usernames and passwords. Therefore, i just hard coded a username and password to login in and use `document.location.href` to relocate to new page once login was successful or return a error message if something went wrong
+  - relearn `onsubmit = login(); return false`, the return false is critical in many aspects. when I used a button to call the ajax call, the form was submitted earlier than the ajax return value so the page wasnt working like intended.
+
+#### cookies
+  - once login is successful, now i want to store the login information in the browser using cookies
+  - cookies are small pieces of data in a website that stores user's information for increase functionality, enhance user experience, and track user behaviour
+  - cookies are often encrypted and then decrypted in the server when data is sent 
+  - cookies in javascript and cookies in php are the same thing.
+
+    ```<?php
+    // Set a cookie named "username" with the value "JohnDoe"
+    setcookie("username", "JohnDoe", time() + (86400 * 7), "/"); // 86400 = 1 day, so this sets the cookie for 7 days
+    // Redirect to another page or show a message
+    echo "Cookie 'username' has been set!";
+    ?>
+    <?php
+    // Check if the cookie "username" is set
+    if (isset($_COOKIE['username'])) {
+    echo "Welcome back, " . $_COOKIE['username'] . "!";
+    } else {
+    echo "Hello, new visitor!";
+    }
+    ?>
+
+  - `$_COOKIE` is a global array to access the cookies. 
+  - cookies store information in key-value pairs
+
+#### sessions vs cookies 
+  - cookies:
+    - client-side storage
+    - cookies can persist across sessions because it remains with time
+    - size limit of around 4kb per cookie
+    - can be accessed and modified by the client
+  - sessions
+    - server-side storage 
+    - persistence: typically temporary and last only as the user is active. ends when browser is closed
+    - size limit is constrained by the server's storage
+    - server controls and manages data, making it inaccessible to the client directly
+
 
 
 
