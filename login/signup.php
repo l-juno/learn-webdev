@@ -13,27 +13,26 @@ error_reporting(E_ERROR | E_WARNING);
     <body>
         <script src="/assets/jquery-3.7.1.min.js" type="text/javascript"></script>
         <script>
-//             function checkUsernameAndPassword(){
-//                 const username = $("#username").val();
-//                 const password = $("#password").val();
-//                 const passwordCheck = $("#passwordCheck").val();
-//                 if(username in accounts){
-//                     alert("Username exists, change username");
-//                     return;
-//                 }
-//                 if(passwordCheck != password){
-//                     alert("Password does not match");
-//                     return;
-//                 }
-//                 creatAccount(username, password);
-//             }
-//
-//             function createAccount(username, password){
-//                 accounts[username] = password;
-//             }
+
+            function checkInputs(){
+                let user_name = $("#user_name").val();
+                let user_email = $("#user_email").val();
+                let user_id = $("#user_id").val();
+                let user_pw = $("#user_pw").val();
+                let passwordCheck = $("#passwordCheck").val();
+                if(user_name === "" || user_email === "" || user_id === "" || user_pw == "" || passwordCheck == ""){
+                    alert("Fill all fields");
+                    return false;
+                }
+                else if (user_pw != passwordCheck){
+                    alert("Password does not match");
+                    return false;
+                }
+                createUser();
+            }
 
 
-            function checkUsernameAndPassword() {
+            function createUser() {
 
                 $.ajax({
                     url: './accounts.php',
@@ -43,26 +42,22 @@ error_reporting(E_ERROR | E_WARNING);
                     dataType: 'json',
                     beforeSend: function() {
                         console.log("before");
-//                         event.preventDefault();
-//                         const password = $("#password").val();
-//                         const passwordCheck = $("#passwordCheck").val();
-//                         if(password != passwordCheck){
-//                             alert("password does not match");
-//                         }
                     },
                     complete: function() {
                         console.log("complete");
                     },
                     success	: function(json) {
-                        if (json.result) {
+                        if (json.result === "success") {
                             console.log("success");
+                            alert("Sign up was successful");
                             document.location.href = "./login.php";
                         } else {
                             console.log("Error: " + json.message);
+                            alert("Error: " + json.message);
                         }
                     },
                     error: function () {
-                        console.log("error: "); //when does this error run?
+                        console.log("error: ");
                     }
                 });
             }
@@ -70,17 +65,23 @@ error_reporting(E_ERROR | E_WARNING);
 
         </script>
 
-        <form id="signupForm" method="post" action="">
+        <form id="signupForm" method="post" action="" onsubmit="checkInputs(); return false">
+            Enter Name:
+            <input type="text" name="user_name" id="user_name" required>
+            <br>
+            Enter Email:
+            <input type="text" name="user_email" id="user_email" required>
+            <br>
             Create Username:
-            <input type="text" name="username" id="username" autocomplete="username">
+            <input type="text" name="user_id" id="user_id" required >
             <br>
             Enter Password:
-            <input type="text" name="password" id="password" autocomplete="new-password">
+            <input type="text" name="user_pw" id="user_pw" required>
             <br>
             Enter Password Again:
-            <input type="text" name="passwordCheck" id="passwordCheck" autocomplete="new-password">
+            <input type="text" name="passwordCheck" id="passwordCheck" required>
             <br>
-            <button type="button" onclick="checkUsernameAndPassword()">Create Account</button>
+            <input type="submit" value="Create Account"/>
         </form>
 
 

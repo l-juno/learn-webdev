@@ -13,21 +13,18 @@ error_reporting(E_ERROR | E_WARNING);
     <body>
         <script src="/assets/jquery-3.7.1.min.js" type="text/javascript"></script>
         <script>
-            function checkFilled(){
-                const username = $("#username").val();
-                const password = $("#password").val();
-                if(username == "" || password == ""){
+            function checkInput(){
+                const user_id = $("#user_id").val();
+                const user_pw = $("#user_pw").val();
+                if(user_id == "" || user_pw == ""){
                     alert("Fill all fields");
                     return false;
                 }
-                return true;
+                login();
             }
 
 
             function login(){
-                if(!checkFilled()){
-                    return false;
-                }
                 $.ajax({
                     url: './auth.php',
                     type: 'post',
@@ -41,22 +38,16 @@ error_reporting(E_ERROR | E_WARNING);
                         console.log("complete");
                     },
                     success	: function(json) {
-
-                        if (json.result == 'SUCCESS') {
-                            console.log("success");
-
-                            let expireDate = new Date();
-                            expireDate.setTime(expireDate.getTime() + (30 * 1000));
-                            document.cookie = `usernameInJS=${json.username}; expires=${expireDate.toUTCString()}; path=/`;
-
+                        if (json.result == "success"){
                             document.location.href = "./main.php";
+                            alert("login successful");
                         } else {
                             console.log("Error: " + json.message);
-                            alert("invalid username or password");
+                            alert("Error: " + json.message);
                         }
                     },
                     error: function () {
-                        console.log("error: "); //when does this error run?
+                        console.log("error: ");
                     }
                 });
             }
@@ -64,12 +55,12 @@ error_reporting(E_ERROR | E_WARNING);
 
         <form method="post" action="" onsubmit="return false" id="formLogin">
             Username:
-            <input type="text" name="username" id="username" autocomplete="username">
+            <input type="text" name="user_id" id="user_id">
             <br>
             Password:
-            <input type="text" name="password" id="password">
+            <input type="text" name="user_pw" id="user_pw">
             <br>
-            <button onclick="login();">Login</button>
+            <button onclick="checkInput();">Login</button>
         </form>
 
         <a href="./signup.php">
