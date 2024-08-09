@@ -40,7 +40,6 @@ error_reporting(E_ERROR | E_WARNING);
                     success	: function(json) {
                         if (json.result == "success"){
                             document.location.href = "./main.php";
-                            alert("login successful");
                         } else {
                             console.log("Error: " + json.message);
                             alert("Error: " + json.message);

@@ -345,6 +345,13 @@ if (!isset($_COOKIE['user_id'])) {
 echo "hi~ ". $_COOKIE['user_name'];
 ```
 
+### 20. Clean up code
+- since functionality is working the way I want, in terms of logging in and signing up, gather common code such as connection to database, or login checking by seeing if there is a cookie, move those code to another file and use the `require` keyword to add the code to the file
+
+### 21. User list 
+- display the list of users on the client screen and make functionality to filter the users based on some characteristic
+
+
 
 
 

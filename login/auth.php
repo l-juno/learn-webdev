@@ -1,20 +1,12 @@
 <?
-$servername = "mysql";
-$username = "myuser";
-$password = "mypassword";
-$dbname = "mydb";
-$response = [];
+require "db_connection.php";
 
+$response = [];
 $user_id = $_POST['user_id'];
 $user_pw = $_POST['user_pw'];
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 $sql = "select * from users where user_id='$user_id'";
-
 $result = $conn->query($sql);
 
 // check if record exists in database
@@ -40,7 +32,6 @@ if (!password_verify($user_pw, $row['user_pw'])) {
 
 
 // insert log into login_log
-
 $ip = $_SERVER['REMOTE_ADDR'];
 
 $sql = "insert into login_log (user_no, user_id, ip)
@@ -68,7 +59,6 @@ if ($conn->query($sql) === TRUE){
     $response["update"] = "fail";
     $response["updateMessage"] = "Error: " . $sql . "<br>" . $conn->error;
 }
-
 
 $conn->close();
 echo json_encode($response);

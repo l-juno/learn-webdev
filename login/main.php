@@ -1,11 +1,16 @@
-login successful
-
 <?php
-if (!isset($_COOKIE['user_id'])) {
-    redirect("./login.php");
-    return;
-}
-echo "hi~ ". $_COOKIE['user_name'];
+require "login_check.php";
+
+echo "Main page for ".$_COOKIE["user_name"];
+
+?>
+<br><br>
+<button onclick="window.location.href = './user_list.php';">User list</button>
+
+
+
+
+
 
 
 
