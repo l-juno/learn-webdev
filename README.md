@@ -350,6 +350,8 @@ echo "hi~ ". $_COOKIE['user_name'];
 
 ### 21. User list 
 - display the list of users on the client screen and make functionality to filter the users based on some characteristic
+  - initially i set it up such that i could only filter one thing at a time. After coding this, i realized that this method is ineffective as some people would want to filter many things
+  - therefore, i will change the code to show all things to filter
 
 
 

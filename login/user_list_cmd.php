@@ -2,31 +2,45 @@
 require 'login_check.php';
 require "db_connection.php";
 
+$user_no = $_POST['user_no'];
+$user_id = $_POST['user_id'];
+$user_name = $_POST['user_name'];
+$user_email = $_POST['user_email'];
+$rt_from = $_POST['rt_from'];
+$rt_to = $_POST['rt_to'];
+$last_logged_in_from = $_POST['last_logged_in_from'];
+$last_logged_in_to = $_POST['last_logged_in_to'];
 
-$cmd = $_POST['cmd'];
-$filter_param = $_POST['filter_param'];
-$filter_by = $_POST['filter_by'];
 $sql = "SELECT user_no, user_id, user_name, user_email, rt, last_login_date FROM `users` where 1=1 ";
 
-if (isset($cmd) && $cmd == 'get_list') {
-    $result = $conn->query($sql);
-}
-
-if (isset($cmd) && $cmd == 'filter' && ($filter_param == 'user_no' || $filter_param == 'user_name' || $filter_param == 'user_email' || $filter_param == 'user_id')) {
-    $where = " and {$filter_param} = '$filter_by' ";
+if (isset($user_no) && $user_no != '') {
+    $where = " and user_no = '$user_no'";
     $sql = $sql.$where;
-    $result = $conn->query($sql);
-    var_dump($result);
 }
-
-if (isset($cmd) && $cmd == 'filter' && ($filter_param == 'rt' || $filter_param == 'last_login_date')) {
-    $from = $_POST['from'];
-    $to = $_POST['to'];
-    $where = " and {$filter_param} >= '{$from}' and {$filter_param} <= '{$to}' ";
+if (isset($user_id) && $user_id != '') {
+    $where = " and user_id = '$user_id'";
     $sql = $sql.$where;
-    $result = $conn->query($sql);
+}
+if (isset($user_name) && $user_name != '') {
+    $where = " and user_name = '$user_name'";
+    $sql = $sql.$where;
+}
+if (isset($user_email) && $user_email != '') {
+    $where = " and user_email = '$user_email'";
+    $sql = $sql.$where;
 }
 
+if ((isset($rt_from) && isset($rt_to)) && ($rt_from!='' && $rt_to!='')) {
+    $where = " and rt >= '{$rt_from}' and rt <= '{$rt_to}'";
+    $sql = $sql.$where;
+}
+if (isset($last_logged_in_from) && isset($last_logged_in_to) && ($last_logged_in_from!='' && $last_logged_in_to!='')) {
+    $where = " and last_login_date >= '{$last_logged_in_from}' and last_login_date <= '{$last_logged_in_to}'";
+    $sql = $sql.$where;
+}
+//var_dump($sql);
+
+$result = $conn->query($sql);
 
 $data = array();
 if ($result->num_rows > 0) {

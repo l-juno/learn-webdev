@@ -1,68 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
 </head>
-
-<body>
 <style>
     table, th, td {
         border: 1px solid black;
     }
 </style>
+<body>
 <script src="/assets/jquery-3.7.1.min.js" type="text/javascript"></script>
-
 <script>
-    $(document).ready(function() {
-       //alert('ready!');
-        $("#filter_param").change(function() {
-            displayCondition();
-        });
 
-        displayCondition();
-        loadTable();
-
-
-    });
-
-    function loadTable(){
-        let filterParam = $('#filter_param').val();
-        let filterBy = $('#filter_by').val();
-        let from = $('#from').val();
-
-        let requestData = {
-            'filter_param': filterParam,
-            'filter_by': filterBy
-        };
-
-        if ((typeof filterBy === 'undefined' || filterBy === "") && typeof from === "undefined"){
-            requestData['cmd'] = "get_list";
-        } else {
-            requestData['cmd'] = "filter";
-            if (filterParam === "rt" || filterParam === "last_login_date") {
-                let from = $('#from').val();
-                let to = $('#to').val();
-                requestData['from'] = from;
-                requestData['to'] = to;
-            }
-        }
-
+    function loadTable() {
         $.ajax({
             url: './user_list_cmd.php',
             type: 'post',
             dataType: 'json',
-            data: requestData,
-            beforeSend: function() {
+            data: $("#filterUserForm").serialize(),
+            beforeSend: function () {
                 console.log("before");
-                console.log(requestData);
             },
-            complete: function() {
+            complete: function () {
                 console.log("complete");
             },
-            success: function(json) {
+            success: function (json) {
+                console.log("success");
                 $('#userTable tr:gt(0)').remove();
                 let userRows = '';
-                $.each(json, function(key, value) {
+                $.each(json, function (key, value) {
                     userRows += '<tr>';
                     userRows += '<td>' + value.user_no + '</td>';
                     userRows += '<td>' + value.user_id + '</td>';
@@ -74,7 +40,7 @@
                 });
                 $('#userTable').append(userRows);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 if (xhr.responseText.indexOf('<!DOCTYPE') !== -1) {
                     window.location.href = './login.php';
                 } else {
@@ -84,56 +50,66 @@
         });
     }
 
-    function displayCondition(){
-        let filterParam = document.getElementById('filter_param').value;
-        let whatToDisplay = document.getElementById('whatToDisplay');
-        whatToDisplay.innerHTML = "";
+    $(document).ready(function () {
+        loadTable();
+    });
 
-        if (filterParam === "user_no" || filterParam === "user_id" || filterParam === "user_email" || filterParam === "user_name") {
-            whatToDisplay.innerHTML = "<input type='text' id='filter_by' placeholder='Enter value'>";
-        }
-        else if (filterParam === "rt" || filterParam === "last_login_date") {
-            whatToDisplay.innerHTML = `
-                From:
-                <input type='date' id='from'>
-                To:
-                <input type='date' id='to'>`;
-        }
+    function clearInput(){
+        document.getElementById("user_no").value = "";
+        document.getElementById("user_id").value = "";
+        document.getElementById("user_name").value = "";
+        document.getElementById("user_email").value = "";
+        document.getElementById("rt_from").value = "";
+        document.getElementById("rt_to").value = "";
+        document.getElementById("last_logged_in_from").value = "";
+        document.getElementById("last_logged_in_to").value = "";
     }
+
 
     </script>
 
+    <form id='filterUserForm' onSubmit="return false">
+        user number
+        <input type='text' id='user_no' name="user_no" placeholder='Enter value'/>
+        user id
+        <input type='text' id='user_id'  name="user_id" placeholder='Enter value'/>
+        username
+        <input type='text' id='user_name' name="user_name" placeholder='Enter value'/>
+        user email
+        <input type='text' id='user_email' name="user_email" placeholder='Enter value'/>
+        <br/>
+        register date
+        <br/>
+        From:
+        <input type='date' id='rt_from' name='rt_from'/>
+        To:
+        <input type='date' id='rt_to' name='rt_to'/>
+        <br/>
+        last login date <br/>
+        From:
+        <input type='date' id='last_logged_in_from' name='last_logged_in_from'/>
+        To:
+        <input type='date' id='last_logged_in_to' name='last_logged_in_to'/>
+        <br/>
+        <button onclick="loadTable();">Confirm</button>
+    </form>
 
-<form id='filterUserForm' onSubmit="return false">
-    <select id="filter_param">
-        <option value="user_no">user_no</option>
-        <option value="user_id">user_id</option>
-        <option value="user_name">user_name</option>
-        <option value="user_email">user_email</option>
-        <option value="rt">rt</option>
-        <option value="last_login_date">last_login_date</option>
-    </select>
-
-    <span id="whatToDisplay"></span>
-    <button onclick="loadTable();">Confirm</button>
-</form>
-
-
-
-
-<table id="userTable">
-    <tr>
-        <th>user_no</th>
-        <th>user_id</th>
-        <th>user_name</th>
-        <th>user_email</th>
-        <th>rt</th>
-        <th>last_login_date</th>
-    </tr>
-
-</table>
+    <button onclick="clearInput();">Clear</button>
 
 
-</body>
 
-</html>
+
+    <table id="userTable">
+        <tr>
+            <th>user_no</th>
+            <th>user_id</th>
+            <th>user_name</th>
+            <th>user_email</th>
+            <th>rt</th>
+            <th>last_login_date</th>
+        </tr>
+    </table>
+
+
+    </body>
+    </html>
