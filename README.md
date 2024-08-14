@@ -353,6 +353,9 @@ echo "hi~ ". $_COOKIE['user_name'];
   - initially i set it up such that i could only filter one thing at a time. After coding this, i realized that this method is ineffective as some people would want to filter many things
   - therefore, i will change the code to show all things to filter
 
+### 22. Add pagination
+- if there is a lot of users displaying all of them in one screen would be difficult to navigate. Therefore, I want to display a certain number of users on one page at a time
+
 
 
 

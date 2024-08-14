@@ -75,10 +75,10 @@ error_reporting(E_ERROR | E_WARNING);
     <input type="text" name="user_id" id="user_id" required>
     <br>
     Enter Password:
-    <input type="text" name="user_pw" id="user_pw" required>
+    <input type="password" name="user_pw" id="user_pw" required>
     <br>
     Enter Password Again:
-    <input type="text" name="passwordCheck" id="passwordCheck" required>
+    <input type="password" name="passwordCheck" id="passwordCheck" required>
     <br>
     <input type="submit" value="Create Account"/>
 </form>

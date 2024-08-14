@@ -57,7 +57,7 @@ error_reporting(E_ERROR | E_WARNING);
             <input type="text" name="user_id" id="user_id">
             <br>
             Password:
-            <input type="text" name="user_pw" id="user_pw">
+            <input type="password" name="user_pw" id="user_pw">
             <br>
             <button onclick="checkInput();">Login</button>
         </form>

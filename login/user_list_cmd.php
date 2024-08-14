@@ -11,6 +11,9 @@ $rt_to = $_POST['rt_to'];
 $last_logged_in_from = $_POST['last_logged_in_from'];
 $last_logged_in_to = $_POST['last_logged_in_to'];
 
+$active_page = $_POST['active_page'];
+$DISPLAY_NUMBER = 3;
+
 $sql = "SELECT user_no, user_id, user_name, user_email, rt, last_login_date FROM `users` where 1=1 ";
 
 if (isset($user_no) && $user_no != '') {
@@ -38,15 +41,25 @@ if (isset($last_logged_in_from) && isset($last_logged_in_to) && ($last_logged_in
     $where = " and last_login_date >= '{$last_logged_in_from}' and last_login_date <= '{$last_logged_in_to}'";
     $sql = $sql.$where;
 }
-//var_dump($sql);
-
 $result = $conn->query($sql);
+$total_rows = $result->num_rows;
 
-$data = array();
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) { //$row is a local variable inside the loop, fetch_assoc gets the row from database
+if ($total_rows > 0) {
+    $num_pages = ceil($total_rows / $DISPLAY_NUMBER);
+    $active_page = max(1, min($active_page, $num_pages));
+
+    $start_index = ($active_page - 1) * $DISPLAY_NUMBER;
+    $sql .= " LIMIT $DISPLAY_NUMBER OFFSET $start_index";
+    $result = $conn->query($sql);
+
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
         $data[] = $row;
     }
+    $data["num_pages"] = $num_pages;
+    $data["active_page"] = $active_page;
+} else {
+    $data = ["num_pages" => 0, "active_page" => 1];
 }
 
 $conn->close();

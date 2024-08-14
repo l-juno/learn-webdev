@@ -11,13 +11,18 @@
 <body>
 <script src="/assets/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script>
+    let active_page = 1;
 
     function loadTable() {
+        console.log(active_page);
+        var formData = $("#filterUserForm").serialize();
+        formData += "&active_page=" + encodeURIComponent(active_page);
+        console.log(formData);
         $.ajax({
             url: './user_list_cmd.php',
             type: 'post',
             dataType: 'json',
-            data: $("#filterUserForm").serialize(),
+            data: formData,
             beforeSend: function () {
                 console.log("before");
             },
@@ -26,17 +31,21 @@
             },
             success: function (json) {
                 console.log("success");
+                displayPagination(json.num_pages);
+
                 $('#userTable tr:gt(0)').remove();
                 let userRows = '';
                 $.each(json, function (key, value) {
-                    userRows += '<tr>';
-                    userRows += '<td>' + value.user_no + '</td>';
-                    userRows += '<td>' + value.user_id + '</td>';
-                    userRows += '<td>' + value.user_name + '</td>';
-                    userRows += '<td>' + value.user_email + '</td>';
-                    userRows += '<td>' + value.rt + '</td>';
-                    userRows += '<td>' + value.last_login_date + '</td>';
-                    userRows += '</tr>';
+                    if (!isNaN(key)){
+                        userRows += '<tr>';
+                        userRows += '<td>' + value.user_no + '</td>';
+                        userRows += '<td>' + value.user_id + '</td>';
+                        userRows += '<td>' + value.user_name + '</td>';
+                        userRows += '<td>' + value.user_email + '</td>';
+                        userRows += '<td>' + value.rt + '</td>';
+                        userRows += '<td>' + value.last_login_date + '</td>';
+                        userRows += '</tr>';
+                    }
                 });
                 $('#userTable').append(userRows);
             },
@@ -63,6 +72,52 @@
         document.getElementById("rt_to").value = "";
         document.getElementById("last_logged_in_from").value = "";
         document.getElementById("last_logged_in_to").value = "";
+    }
+
+    function setPage(pageNumber){
+        active_page = pageNumber;
+        loadTable();
+    }
+
+    function displayPagination(num_pages) {
+        console.log(num_pages <= 0);
+        if (num_pages <= 0) {
+            let paginationContainer = document.getElementById("pagination");
+            if (paginationContainer) {
+                paginationContainer.innerHTML = "";
+            }
+            return;
+        }
+        else {
+            let paginationContainer = document.getElementById("pagination");
+            if (!paginationContainer) {
+                paginationContainer = document.createElement("div");
+                paginationContainer.id = "pagination";
+                document.body.appendChild(paginationContainer);
+            }
+
+            paginationContainer.innerHTML = "";
+
+            let firstButton = document.createElement("button");
+            firstButton.id = "first";
+            firstButton.innerText = "First";
+            firstButton.onclick = function() { setPage(1) };
+            paginationContainer.appendChild(firstButton);
+
+            for (let i = 1; i <= num_pages; i++) {
+                let pageButton = document.createElement("button");
+                pageButton.id = i.toString();
+                pageButton.innerText = (i).toString();
+                pageButton.onclick = function() { setPage(i) };
+                paginationContainer.appendChild(pageButton);
+            }
+
+            let lastButton = document.createElement("button");
+            lastButton.id = "last";
+            lastButton.innerText = "Last";
+            lastButton.onclick = function() { setPage(num_pages) };
+            paginationContainer.appendChild(lastButton);
+        }
     }
 
 
@@ -109,6 +164,15 @@
             <th>last_login_date</th>
         </tr>
     </table>
+
+
+    <div id="pagintaion"></div>
+
+
+
+
+
+
 
 
     </body>
