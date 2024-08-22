@@ -1,28 +1,60 @@
-<?
-error_reporting(E_ERROR | E_WARNING);
+<?php
+require_once "./header.php";
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-    </head>
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <a href="./calculate/calculate.php"><button> calculator </button></a>
+        </div>
+        <div class="col">
+            <a href="./journal/journal.php">
+                <button> Journal </button>
+            </a>
+        </div>
+        <div class="col">
+            <a href="./login/login.php">
+                <button>Login</button>
+            </a>
+        </div>
+    </div>
 
-    <body>
-        <a href="./calculate/calculate.php">
-            <button> calculator </button>
-        <a>
-        <br><br>
-        <a href="./journal/journal.php">
-            <button> Journal </button>
-        <a>
-        <br><br>
-        <a href="./login/login.php">
-        <button>Login</button>
-        </a>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Table heading</th>
+                <th>Table heading</th>
+                <th>Table heading</th>
+                <th>Table heading</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+            </tr>
+            <tr>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+            </tr>
+            <tr>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+                <td>Table cell</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    </body>
-
-</html>
+<?php
+require_once "./footer.php";
+?>
 
 
 

@@ -356,6 +356,11 @@ echo "hi~ ". $_COOKIE['user_name'];
 ### 22. Add pagination
 - if there is a lot of users displaying all of them in one screen would be difficult to navigate. Therefore, I want to display a certain number of users on one page at a time
 
+### 23. Add styles using bootstrap
+- google bootstrap and une npm to install bootstrap dependencies
+- learn how to css...
+- 
+
 
 
 

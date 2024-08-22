@@ -1,17 +1,7 @@
-<?
-error_reporting(E_ERROR | E_WARNING);
+<?php
+require_once "../header.php";
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <a href="/index.php">
-        <button>Home</button>
-    </a>
-</head>
 
-<body>
-<script src="/assets/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script>
 
     function checkInputs() {
@@ -63,27 +53,33 @@ error_reporting(E_ERROR | E_WARNING);
 
 
 </script>
-
-<form id="signupForm" method="post" action="" onsubmit="checkInputs(); return false">
-    Enter Name:
-    <input type="text" name="user_name" id="user_name" required>
-    <br>
-    Enter Email:
-    <input type="text" name="user_email" id="user_email" required>
-    <br>
-    Create Username:
-    <input type="text" name="user_id" id="user_id" required>
-    <br>
-    Enter Password:
-    <input type="password" name="user_pw" id="user_pw" required>
-    <br>
-    Enter Password Again:
-    <input type="password" name="passwordCheck" id="passwordCheck" required>
-    <br>
-    <input type="submit" value="Create Account"/>
+<div class="container mx-auto pt-5">
+<form id="signupForm" method="post" action="" onsubmit="checkInputs(); return false" class="row g-3">
+    <div class="col-6">
+    <label for="user_name" class="form-label">Enter Name:</label>
+    <input type="text" name="user_name" id="user_name" class="form-control" required/>
+    </div>
+    <div class="col-6">
+    <label for="user_email" class="form-label">Enter Email:</label>
+    <input type="text" name="user_email" id="user_email" class="form-control" required/>
+    </div>
+    <div class="col-12">
+    <label for="user_id" class="form-label">Create Username:</label>
+    <input type="text" name="user_id" id="user_id" class="form-control" required>
+    </div>
+    <div class="col-12">
+    <label for="user_pw" class="form-label">Enter Password:</label>
+    <input type="password" name="user_pw" id="user_pw" class="form-control" required>
+    </div>
+    <div class="col-12">
+    <label for="passwordCheck" class="form-label">Enter Password Again:</label>
+    <input type="password" name="passwordCheck" id="passwordCheck" class="form-control" required>
+    </div>
+    <div class="col-12">
+    <input type="submit" value="Create Account" class="btn btn-primary"/>
+    </div>
 </form>
-
-
-</body>
-
-</html>
+</div>
+<?php
+require_once "../footer.php";
+?>
